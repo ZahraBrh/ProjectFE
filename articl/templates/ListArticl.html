@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{%  block content %}
+<h2>List of articls</h2>
+
+    
+    <p>
+      <a href="{% url 'articl:postarticl' %}" class="btn btn-primary">Upload Articl</a>
+    </p>
+    
+
+  <table class="table mb-0">
+    <thead>
+      <tr>
+
+      </tr>
+      <tr>
+        
+        <th>Title</th>
+        <th>Posted by</th>
+        <th>Download</th>
+        <th>Delete</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      {% for articl in articls %}
+        <tr>
+            <td>{{articl.titre}} </td>
+            <td>{{articl.user}} </td>
+            <td><a href="{{articl.path.url}}" class="btn btn-primary btn-sm" target="_blank"> Open pdf </a>
+            </td>
+            <td>
+              <form method="post" action="{% url 'articl:delele_Articl' articl.pk  %} ">
+                {% csrf_token %}
+                <button type="submit" class="btn-danger btn-sm">Delete </button>
+                   
+              </form>
+            </td>
+            
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

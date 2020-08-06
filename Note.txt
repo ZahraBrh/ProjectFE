@@ -1,0 +1,13 @@
+CREATE __ POST __ MAKE NEW
+RETRIEVE __ GET __ LIST/ SEARCH
+UPDATE __ PUT/PATCH __ EDIT 
+DELETE __ DELETE __ DLEETE
+
+
+
+Pour activer l'env env\Scripts\activate 🎵🎨😂❤🔠 
+
+
+
+https://bootsnipp.com/snippets/kM0M dynamic form field 🎶
+https://ccbv.co.uk/projects/Django/3.0/django.views.generic.edit/DeleteView/  

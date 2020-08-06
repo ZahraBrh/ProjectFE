@@ -1,0 +1,72 @@
+
+{% extends 'base.html' %}
+
+{%  block content %}
+    
+
+{% load crispy_forms_tags %}
+
+<form action="" method="post">
+        
+        <div class="form-row">
+            <div class="form-group col-md-6 mb-0">
+                {{ form.username|as_crispy_field }}
+            </div>
+            
+            <div class="form-group col-md-6 mb-0">
+                {{ form.email|as_crispy_field }}
+            </div>    
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6 mb-0">
+                {{ form.first_name|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-6 mb-0">
+                {{ form.last_name|as_crispy_field }}
+            </div>
+        </div>
+
+
+        <div class="form-row">
+            <div class="form-group col-md-6 mb-0">
+                {{ form.password1|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-6 mb-0">
+                {{ form.password2|as_crispy_field }}
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6 mb-0">
+                {{ profile_form.labo_affiliation|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-6 mb-0">
+                {{ profile_form.domaine|as_crispy_field }}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6 mb-0">
+                {{ profile_form.birth_date|as_crispy_field  }}
+            </div>
+            <div class="form-group col-md-6 mb-0">
+                {{ profile_form.location|as_crispy_field }}
+            </div>
+        </div>
+
+        <input type="submit" >
+        {% csrf_token %}
+        {%  if messages  %}
+                    <ul class="messages">
+                        {%  for msg in messages %}
+                        <li> 
+                            <div class="alert alert-{{msg.level_tag}}" role="alert" >
+                                {{msg.message}}
+
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+        {% endif %}
+</form>
+{% endblock %}

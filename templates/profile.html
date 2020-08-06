@@ -1,0 +1,13 @@
+
+{%  extends 'base.html' %}
+
+{% block content %}
+    <h1> Profile </h1>
+    <p>  Welcome to my site {{user.username}} </p> 
+    
+    <li> first name :<i>{{user.first_name}}</i></li>
+    <li> last name :<i>{{user.last_name}}</i></li>
+    <li> birth date :<i>{{user.profile.birth_date}}</i></li>
+    <li> domaine :<i>{{user.profile.domaine}}</i></li>
+
+{% endblock %}
