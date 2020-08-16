@@ -33,8 +33,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    #'ratings',
     'home.apps.HomeConfig',
-    
     'articl.apps.ArticlConfig',
     'crispy_forms',
     'accounts.apps.AccountsConfig',
@@ -128,7 +128,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR,'static/'),
+    
+]
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_REDIRECT_URL="home"
 LOGOUT_REDIRECT_URL="home"
+LOGIN_URL = '/login/'
+
+
+

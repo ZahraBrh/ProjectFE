@@ -1,5 +1,5 @@
 from django import forms
-from .models import ArticlPub
+from .models import ArticlPub,Note,Favorite
 from django.forms import ModelForm
 from datetime import date
 
@@ -41,7 +41,15 @@ class Postform(forms.ModelForm):
 
 class NoteForm(forms.ModelForm):
     class Meta:
-        fields = ("note")
+        model = Note
+        fields = ("note",)
+
+class FaveForm(forms.ModelForm):
+    class Meta:
+        model = Favorite
+        fields = ("is_favorite",)
+        widgets ={"is_favorite":forms.BooleanField(label="check this")
+        }
 
 
 

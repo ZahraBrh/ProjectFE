@@ -1,0 +1,47 @@
+{%  extends 'base.html' %}
+
+{%  block content %}
+<div class="container-fluid" >
+   <h3> {{articl.titre}}</h3>
+   <p>Created by : {{articl.user}} </p>
+   <p>Created on : {{articl.timestamp}} </p>
+    
+   {#  THIS IF DOES NOT WORK   #}
+   {% if  articl.auteurEcrit is not None %}
+    <p>Published by : {{articl.auteurEcrit}} </p>
+   {% endif%}
+   <td><a href="{{articl.path.url}}" class="btn btn-primary btn-sm" target="_blank"> Open pdf </a>
+   </td>
+   <td>
+    <form action=" {% url 'articl:ajouter_note' articl.pk %} "  method="POST" >
+      {% csrf_token %}
+      <label for="note"><h3>Rating</h3></label>
+      <input type="text" name="note" class="form-control" >
+      <br>
+      <input type="submit" class="btn btn-danger" value="ajouter note" >
+
+    </form>
+  </td>
+  <div > 
+    
+</div>
+    <p>Average Rating :{{average}} <br></p>
+   <td>
+   
+    <div id="favourite-section"> 
+        {% if is_favourite %}
+            <a href=" {% url 'articl:favourite'  pk=articl.pk  %} ">
+                <button type="button" class="btn btn-success">fav</button>
+                <i class="far fa-heart"> </i>
+            </a>
+        {% else %}
+            <a href=" {% url 'articl:favourite'  pk=articl.pk  %} ">
+                <button type="button" class="btn btn-danger">fav</button>
+                <i class="far fa-heart"> </i>
+            </a>
+        {% endif %}
+    </div>
+  </td>
+</div>
+
+{% endblock %}

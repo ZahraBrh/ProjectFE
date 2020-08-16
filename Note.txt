@@ -11,3 +11,74 @@ Pour activer l'env env\Scripts\activate 🎵🎨😂❤🔠
 
 https://bootsnipp.com/snippets/kM0M dynamic form field 🎶
 https://ccbv.co.uk/projects/Django/3.0/django.views.generic.edit/DeleteView/  
+
+
+
+
+
+def ajouter_Note(request, pk):
+    form = NoteForm(request.POST or None)
+    if request.method == "POST":
+        user = User.objects.get(username=request.user)
+        articl = ArticlPub.objects.get(pk=pk)
+        note = Note.objects.get_or_create(user=user,articl=articl)
+        note = Note.objects.filter(user=user,articl=articl)
+        
+        if form.is_valid():
+            user_note = Note.objects.get(user=user, articl=articl)
+            user_note.note = request.POST["note"]
+            user_note.save()
+            print('note ajouter')
+            return redirect('articl:listArticl')
+    else:
+        user_note = Note(articl=articl, user=user, note=request.POST["note"])
+        user_note.save()
+        
+    return render(request, 'ListArticl.html', {"form": form})
+
+
+
+def ajouter_Note(request, pk):
+
+    articl = ArticlPub.objects.get(pk=pk)
+    if request.method == "POST":
+        form = NoteForm(request.POST or None)
+        if form.is_valid():
+            data = form.save(commit=False)
+            data.note=request.POST["note"]
+            data.user=request.user
+            data.articl=articl
+            data.save()
+            print('note ajouter')
+            return redirect('articl:listArticl')
+    else:
+        form = NoteForm()
+    return render(request, 'ListArticl.html', {"form": form})
+
+def ajouter_Note(request, id):
+    try:
+        user = User.objects.get(id=request.user)
+        articl = ArticlPub.objects.get(id=request.POST["articl"])
+        note=Note.objects.filter(user=request.user,articl=pk)
+    except expression as identifier:
+        pass
+    note = Note.objects.get_or_create(user=request.user,articl=pk)
+    if note.note == 0 :
+        if request.method == "POST":
+                data.note=request.POST["note"]
+                data.user=request.user
+                data.articl=articl
+                data.save()
+                print('note ajouter')
+                return redirect('articl:listArticl')
+    else:
+        note.note=request.POST["note"]
+        note.save()
+        print('note ajouter')
+
+    return redirect('articl:listArticl')
+
+def add_favorite(request,pk):
+    new_favorite=ArticlPub.objects.get(pk=pk)
+    Favorite.add_favorite(request.user, new_favorite) 
+    return redirect('ListArticl.html')

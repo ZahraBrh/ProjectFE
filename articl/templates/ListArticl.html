@@ -19,6 +19,9 @@
         <th>Title</th>
         <th>Posted by</th>
         <th>Download</th>
+        <th>Noter</th>
+        <th>Note</th>
+        <th>Favorite</th>
         <th>Delete</th>
         
       </tr>
@@ -31,12 +34,42 @@
             <td><a href="{{artPub.path.url}}" class="btn btn-primary btn-sm" target="_blank"> Open pdf </a>
             </td>
             <td>
-              <form method="post" action="{% url 'articl:delele_Articl' artPub.pk  %} ">
+              <form action=" {% url 'articl:ajouter_note' artPub.pk %} "  method="POST" >
                 {% csrf_token %}
-                <button type="submit" class="btn-danger btn-sm">Delete </button>
-                   
+                <label for="note">Rating</label>
+                <input type="text" name="note" class="form-control" >
+                <br>
+                <input type="submit" class="btn btn-danger" value="ajouter note" >
+
               </form>
+              
             </td>
+    
+              {%for note in notes%}
+                {% if note.user == request.user %}
+                  {%if artPub.pk == note.articl.pk %}
+                    <td>{{note.note}} <br> {{note.user}}</td>
+                    
+
+                  {%endif%}
+                {%endif%}
+              {% endfor %}
+              <td>
+                <a href=" {% url 'articl:favorite_Articl'  pk=artPub.pk  %} ">
+                  <button type="button" class="btn btn-success">fav</button>
+                  
+                </a>
+              </td>
+            {% if artPub.user == request.user %}
+              <td>
+                <form method="POST" action="{% url 'articl:delele_Articl' artPub.pk  %} ">
+                  {% csrf_token %}
+                  <button type="submit" class="btn-danger btn-sm">Delete </button>
+                   
+                </form>
+              </td>
+            {% endif %}
+
             
         </tr>
       {% endfor %}

@@ -17,7 +17,7 @@
                 {% for art in arts %}
                 
                     <tr>
-                        <td>{{art.titre}} </td>
+                        <td><a href=" {% url 'articl:detail_articl' pk=art.pk %} "> {{art.titre}} </a> </td>
                         <td>{{art.user}} </td>
                         <td><a href="{{art.path.url}}" class="btn btn-primary btn-sm" target="_blank"> Open pdf </a>
                         </td>

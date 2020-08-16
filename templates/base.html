@@ -89,6 +89,7 @@
         {% if user.is_authenticated %}
             <a href="{%  url 'articl:postarticl'  %}"> Add an articl //</a>
             <a href="{%  url 'articl:listArticl'  %}"> List of articls //</a>
+            <a href="{%  url 'articl:favourite_list'  %}"> Favourite list//</a>
             <a href="{%  url 'password_change'  %}"> Change password //</a>
             <a href="{%  url 'logout'  %}"> Log out// </a>
             <strong>  You are logged in as {{user.first_name}} {{user.last_name}} </strong>

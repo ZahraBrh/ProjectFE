@@ -1,0 +1,19 @@
+{%  extends 'base.html' %}
+
+{%  block content %}
+<div>
+    {% for favourite_articl in favourite_articls %}
+        <tr>
+            <td>{{favourite_articl.titre}} </td>
+            <td>{{favourite_articl.user}} </td>
+            <td><a href="{{favourite_articl.path.url}}" class="btn btn-primary btn-sm" target="_blank"> Open pdf </a>
+            </td>
+            
+        </tr>
+      {% endfor %}
+
+
+</div>
+
+
+{% endblock %}
