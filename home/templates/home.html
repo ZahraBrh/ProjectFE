@@ -2,14 +2,35 @@
 
 {% block content %}
     
-    <div style="width: 100%;" >
-        <div class="col-md-8" style="float:left; width: 70%">
-            <h2>  HomePage</h2>
-            <p>  Welcome to my site : {{user.username}} </p>
+    <div style="container-fluid"" >
+        <div class="col-8" style="float:left; width: 70%">
+            
+            <table class="table mb-0 " style="float:left; width: 50%">
+                <thead>
+                  <tr>
+                    <th>Title</th>
+                    <th>Posted by</th>
+                    <th>Download</th>
+                  </tr>
+                </thead>
+            <tbody>
+                {% for art in arts %}
+                
+                    <tr>
+                        <td>{{art.titre}} </td>
+                        <td>{{art.user}} </td>
+                        <td><a href="{{art.path.url}}" class="btn btn-primary btn-sm" target="_blank"> Open pdf </a>
+                        </td>
+                        
+                        
+                    </tr>
+                {% endfor %}
+            </tbody>
+            
             
         </div>
         
-        <div style="float:right;" >
+        <div class="col-4" style="float:right;width: 30%" >
             <h1>Other peaple</h1>
             {% for user in users %}
                 {% if not user in followers %}

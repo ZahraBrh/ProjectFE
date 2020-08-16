@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{%  extends 'base.html' %}
 
 {%  block content %}
 <h2>List of articls</h2>
@@ -24,14 +24,14 @@
       </tr>
     </thead>
     <tbody>
-      {% for articl in articls %}
+      {% for artPub in artPubs %}
         <tr>
-            <td>{{articl.titre}} </td>
-            <td>{{articl.user}} </td>
-            <td><a href="{{articl.path.url}}" class="btn btn-primary btn-sm" target="_blank"> Open pdf </a>
+            <td>{{artPub.titre}} </td>
+            <td>{{artPub.user}} </td>
+            <td><a href="{{artPub.path.url}}" class="btn btn-primary btn-sm" target="_blank"> Open pdf </a>
             </td>
             <td>
-              <form method="post" action="{% url 'articl:delele_Articl' articl.pk  %} ">
+              <form method="post" action="{% url 'articl:delele_Articl' artPub.pk  %} ">
                 {% csrf_token %}
                 <button type="submit" class="btn-danger btn-sm">Delete </button>
                    

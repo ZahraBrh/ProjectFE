@@ -1,22 +1,15 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from django.http import HttpResponse,Http404
 from django.views.generic import TemplateView, ListView , FormView
-from .forms import Postform, SearchForm
+from .forms import Postform
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.forms.formsets import formset_factory
 from django.core.files.storage import FileSystemStorage
-from django.db.models import Q
 from .models import ArticlPub
 from accounts import views
-from .filter import PostFilter
-
-
 
 # Create your views here.
-
-
-
 def index(request):
     return render(request ,'base.html')
 
@@ -61,28 +54,13 @@ def deleteArticl(request, pk):
 
 @login_required
 def listArticl(request):
+    artPubs=ArticlPub.objects.all() 
+    return render(request,'ListArticl.html',{'artPubs':artPubs})
+
+class ArticlListView(ListView):
+    model = ArticlPub
+    template_name = 'article/listé.html'
+    context_object_name = 'articlpubs'
+
+
     
-    articls=ArticlPub.objects.all()
-    context = {'articls':articls}
-    return render(request,"ListArticl.html",context)
-
-
-
-#class SearchResults(ListView):
-   # model = ArticlPub
-   # template_name = 'articl/search.html'
-
-    #def get_queryset(self, **kwargs): 
-     #  context = super().get_context_data(**kwargs)
-      # context['filter'] = PostFilter(self.request.GET, queryset=self.get_queryset())
-       #return context
-
-
-def Articl_Filtred_list(request):
-    form = SearchForm(request.POST or None)
-    context = {"form":form}
-    if request.method== 'POST':
-        queryset = ArticlPub.objects.all().order_by('timestamps').filter(titre__icontains=form['titre'].value(),keywords__icontains=form[keywords].value())
-        context = {"form":form,"queryset":queryset}
-
-    return render(request,"search.html",context)

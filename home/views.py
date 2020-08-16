@@ -21,13 +21,13 @@ class HomeView(TemplateView):
     def get(self, request):
         profiles=Profile.objects.exclude(id=request.user.id)
         users = User.objects.exclude(id=request.user.id) 
-        articls=ArticlPub.objects.all() 
+        arts=ArticlPub.objects.all() 
         
         follower, created = Follower.objects.get_or_create(current_user=request.user)
         followers = follower.users.all()
         
 
-        args = {'profiles':profiles,'articls':articls,'users':users,'followers':followers}
+        args = {'profiles':profiles,'arts':arts,'users':users,'followers':followers}
         return render(request, self.template_name, args)
 
 

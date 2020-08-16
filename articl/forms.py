@@ -15,7 +15,7 @@ class Postform(forms.ModelForm):
             "keywords",
             "maison_ed",
             "typeArticl",
-            "published_date",
+            #"published_date",
             "path",
             "auteurEcrit",
         ]
@@ -31,13 +31,21 @@ class Postform(forms.ModelForm):
                                     'placeholder':'Select articl type...'}),
             "maison_ed":forms.TextInput(attrs={'class':'form-control',
                                     'placeholder':'publishing house...'}),
-            "published_date":forms.DateInput(attrs={'class':'form-control',
-                                    'placeholder':'YYYY-MM-DD'}),
+            #"published_date":forms.DateInput(attrs={'class':'form-control',
+            #                        'placeholder':'YYYY-MM-DD'}),
             "auteurEcrit":forms.SelectMultiple(attrs={'class':'form-control',
                                     'placeholder':'Please select authors ...'}),
                     
 
                     }
+
+class NoteForm(forms.ModelForm):
+    class Meta:
+        fields = ("note")
+
+
+
+
 
 """class EcritForm(forms.ModelForm):
     class Meta:
@@ -48,8 +56,9 @@ class Postform(forms.ModelForm):
             "ordreAuteur",
             ]"""
 
-class SearchForm(forms.ModelForm):
+"""class SearchForm(forms.ModelForm):
 
     class Meta:
          model = ArticlPub
-         fields = ['titre','keywords','resumé']
+         fields = ['titre','keywords','resumé']"""
+

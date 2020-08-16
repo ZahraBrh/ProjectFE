@@ -10,10 +10,11 @@ urlpatterns = [
     #path(r'', views.index, name='index'),
     path('postarticl/',views.createPost,name='postarticl'),
     path('listarticl/',views.listArticl,name='listArticl'),
+
     path('<int:pk>/', views.deleteArticl,name='delele_Articl'),
     #path('search/',views.SearchResults, name='search_results'),
     #path('search/',views.Articl_Filtred_list, name='search'),
-    #path('listarticl/',ListeArticlesView.as_view(),name='articlList'),
+    #path('class/articl/', views.ArticlListView.as_view(),name='class_articlList'),
 
 
 ]

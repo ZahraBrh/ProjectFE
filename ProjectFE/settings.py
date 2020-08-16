@@ -33,9 +33,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'home',
-    'django_filters',
-   # 'multiSelectField',
+    'home.apps.HomeConfig',
+    
     'articl.apps.ArticlConfig',
     'crispy_forms',
     'accounts.apps.AccountsConfig',
