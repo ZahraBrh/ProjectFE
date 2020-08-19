@@ -16,11 +16,19 @@
     <form action=" {% url 'articl:ajouter_note' articl.pk %} "  method="POST" >
       {% csrf_token %}
       <label for="note"><h3>Rating</h3></label>
-      <input type="text" name="note" class="form-control" >
+      
+      <input type="range" name="note" id="rangeInpute" min="0" max="5" step="1" value="0" oninput="amount.value-rangeInpute.value">
+      <output name="amount" id="amount" for="rangeInpute">0</output>
       <br>
       <input type="submit" class="btn btn-danger" value="ajouter note" >
+      
 
     </form>
+    
+                    
+
+                  
+    
   </td>
   <div > 
     
@@ -31,13 +39,13 @@
     <div id="favourite-section"> 
         {% if is_favourite %}
             <a href=" {% url 'articl:favourite'  pk=articl.pk  %} ">
-                <button type="button" class="btn btn-success">fav</button>
+                <button type="button" class="btn btn-success"> on fav</button>
                 <i class="far fa-heart"> </i>
             </a>
         {% else %}
             <a href=" {% url 'articl:favourite'  pk=articl.pk  %} ">
-                <button type="button" class="btn btn-danger">fav</button>
-                <i class="far fa-heart"> </i>
+                <button type="button" class="btn btn-danger"> add to fav</button>
+                <i class="far fa-heart"> </i> 
             </a>
         {% endif %}
     </div>

@@ -21,6 +21,7 @@ def index(request):
 def detail_articl(request,pk):
     articl=ArticlPub.objects.get(pk=pk)
     notes=Note.objects.filter(articl=pk)
+    
     average=notes.aggregate(Avg("note"))['note__avg']
     if average==None:
         average=0
@@ -35,6 +36,7 @@ def detail_articl(request,pk):
      
     context={'articl':articl,
             'notes':notes,
+            
             'average':average,
             'is_favourite':is_favourite,
             #'is_rated':is_rated
@@ -46,7 +48,7 @@ def favourite_list(request):
     user= request.user
     favourite_articls=user.favourite.all()
     context={
-        'favourite_articls':favourite_articls
+        'favourite_articls':favourite_articls,
     }
     return render(request,'favourite_list.html',context)
 
@@ -230,23 +232,4 @@ def favorite(request,pk):
 
 
     
-def add_favorite(request, pk):
-    articl = ArticlPub.objects.get(pk=pk)
-    user=request.user.id
-    if Favorite.objects.filter(user=user,articl=articl).exists():
-        Favorite.objects.filter(user=user,articl=articl).delete()
-    else:
-        if request.method == "POST":
-            form = FaveForm(request.POST or None)
-            if form.is_valid():
-                data = form.save(commit=False)
-                data.is_favorite=True
-                data.user=request.user
-                data.articl= articl
-                data.save()
-                print('note ajouter')
-                return redirect('articl:listArticl')
-        else:
-            form = NoteForm()
-    
-    return render(request, 'ListArticl.html', {"form": form})
+

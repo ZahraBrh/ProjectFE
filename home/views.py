@@ -11,9 +11,6 @@ from django.contrib.auth.models import User
 from .models import Follower
 
 
-
-
-
 class HomeView(TemplateView):
     template_name = 'home.html'
     
@@ -34,7 +31,7 @@ class HomeView(TemplateView):
 
 
 
-
+@login_required
 def change_followers(request, operation , pk):
     new_follower=User.objects.get(pk=pk)
     

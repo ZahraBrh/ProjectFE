@@ -17,7 +17,7 @@ urlpatterns = [
     path('<int:pk>/', views.moyenne,name='moyenne'),
     path('ajouterNote/<int:pk>/',views.ajouter_Note, name="ajouter_note"),
     path('livres_note/', views.list_note, name='list_note'),
-    #path('<int:pk>/', views.add_favorite,name='favorite_Articl'),
+    
     
     #path('search/',views.SearchResults, name='search_results'),
     #path('search/',views.Articl_Filtred_list, name='search'),
