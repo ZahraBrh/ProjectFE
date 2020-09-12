@@ -21,7 +21,7 @@ from django.views.static import serve
 from django.conf.urls import url 
 from accounts import views as accounts_views
 from articl import views as articl_views
-
+from django.conf import settings
 from ProjectFE import views
 from home.views import HomeView
 from django.contrib.auth.views import LoginView

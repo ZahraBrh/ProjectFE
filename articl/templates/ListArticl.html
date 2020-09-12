@@ -1,5 +1,5 @@
 {%  extends 'base.html' %}
-
+{% load static %}
 {%  block content %}
 <h2>List of articls</h2>
 
@@ -62,7 +62,7 @@
               </td>
             {% if artPub.user == request.user %}
               <td>
-                <form method="POST" action="{% url 'articl:delele_Articl' artPub.pk  %} ">
+                <form method="POST" action="{% url 'articl:delele_Articl' pk=artPub.pk  %} ">
                   {% csrf_token %}
                   <button type="submit" class="btn-danger btn-sm">Delete </button>
                    

@@ -31,7 +31,7 @@
         </div>
         
         <div class="col-4" style="float:right;width: 30%" >
-            <h1>Other peaple</h1>
+            <h2>Other peaple</h2>
             {% for user in users %}
                 {% if not user in followers %}
                     <a href="{%  url 'accounts:profile_with_pk' pk=user.pk  %}">
@@ -43,8 +43,21 @@
                     </a>
                 {% endif %}
             {% endfor %}
+            <h2>predict list</h2>
+            {% for p in rec %}
+                {% if not p in followers %}
+                
+                    <a href="{%  url 'accounts:profile_with_pk' pk=p.pk  %}">
+                        <p> {{  p }}</p>
+                    </a>
+                
+                    <a href=" {% url 'home:change_followers' operation='add' pk=p.pk  %} ">
+                        <button type="button" class="btn btn-success">follow</button>
+                    </a>
 
-            <h1>Follower list</h1>
+                {% endif %}
+             {% endfor %}
+            <h2>Follower list</h2>
             {% for follower in followers %}
                 <a href="{%  url 'accounts:profile_with_pk' pk=follower.pk  %}">
                     <p> {{  follower.username }}</p>
@@ -53,6 +66,8 @@
                     <button type="button" class="btn btn-secondary">Unfollow</button>
                 </a>
             {% endfor %}
+
+            
         </div>
         
         

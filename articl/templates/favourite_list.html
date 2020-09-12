@@ -1,19 +1,39 @@
 {%  extends 'base.html' %}
-
+{% load static %}
 {%  block content %}
-<div>
-    {% for favourite_articl in favourite_articls %}
-        <tr>
-            <td>{{favourite_articl.titre}} </td>
-            <td>{{favourite_articl.user}} </td>
-            <td><a href="{{favourite_articl.path.url}}" class="btn btn-primary btn-sm" target="_blank"> Open pdf </a>
-            </td>
-            
-        </tr>
-      {% endfor %}
 
+    
 
-</div>
+    <table class="table mb-0">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Posted by</th>
+            <th>Read it</th>
+            <th>Favorite</th>
+          </tr>
+        </thead>
+        
+        <tbody>
+            {% for favourite_articl in favourite_articls %}
+            <tr>
+                <td>{{favourite_articl.titre}} </td>
+                <td>{{favourite_articl.user}} </td>
+                <td><a href="{{favourite_articl.path.url}}" class="btn btn-primary btn-sm" target="_blank"> Open pdf </a>
+                </td>
+                <td>
+                    
+                    <a href=" {% url 'articl:favourite'  pk=favourite_articl.pk  %} ">
+                        <button type="button" class="btn btn-danger"> Remove from fav</button>
+                        <i class="far fa-heart"> </i> 
+                    </a>
+                </td>
+               
+            </tr>
+          {% endfor %}
+        </tbody>
+    </table>
+
 
 
 {% endblock %}

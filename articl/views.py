@@ -12,6 +12,7 @@ from .models import ArticlPub,Note,Favorite
 from accounts import views
 from django.contrib.auth.models import User
 from django.template.context import RequestContext
+from .recommender import get_predict_list
 
 # Create your views here.
 def index(request):
@@ -75,7 +76,7 @@ def createPost(request):
 
             print('post created')
             messages.add_message(request, messages.SUCCESS , "You have posted your articl successfully" )
-            return redirect('index')
+            return redirect('home:home')
     else:
         form=Postform()        
         
@@ -114,7 +115,7 @@ def favourite(request,pk):
         print('add to fav')
 
     #return HttpResponseRedirect(articl.get_absolute_url())
-    return redirect('home:home')
+    return redirect('articl:favourite_list')
 
 @login_required
 class ArticlListView(ListView):
@@ -231,5 +232,14 @@ def favorite(request,pk):
     return render(request,'recommandation/list_favoris.html',context)
 
 
-    
+@login_required 
+def recommandation(request):
+
+    predict_list = get_predict_list(request.user)
+    print(predict_list)
+    context = {
+        'predict_list':predict_list
+
+    }
+    return render(request,'recommandation/list_favoris.html',context)
 

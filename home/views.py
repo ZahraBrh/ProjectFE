@@ -9,6 +9,7 @@ from articl.models import ArticlPub
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .models import Follower
+from articl.recommender import get_predict_list
 
 
 class HomeView(TemplateView):
@@ -22,9 +23,15 @@ class HomeView(TemplateView):
         
         follower, created = Follower.objects.get_or_create(current_user=request.user)
         followers = follower.users.all()
-        
+        predict_list = get_predict_list(request.user)
+        print(predict_list)
+        rec=User.objects.filter(pk__in=predict_list)
 
-        args = {'profiles':profiles,'arts':arts,'users':users,'followers':followers}
+        args = {'profiles':profiles,
+        'arts':arts,
+        'users':users,
+        'followers':followers,
+        'rec':rec}
         return render(request, self.template_name, args)
 
 

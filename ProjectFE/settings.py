@@ -129,7 +129,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR,'static/'),
+    '/Users/x1/Desktop/PFE/env/ProjectFE/static',
     
 ]
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
