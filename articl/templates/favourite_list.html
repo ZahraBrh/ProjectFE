@@ -2,9 +2,22 @@
 {% load static %}
 {%  block content %}
 
-    
+<style>
 
-    <table class="table mb-0">
+#content{
+  background-color:whitesmoke;
+  border-radius: 2rem;
+  text-transform: uppercase;
+  transition: background-color 650ms;
+  padding-bottom:20px;
+  
+  
+}
+</style>
+
+<div class="container"  style="padding-bottom:50px" >
+  <div id="content">
+      <table class="table mb-0">
         <thead>
           <tr>
             <th>Title</th>
@@ -28,11 +41,15 @@
                         <i class="far fa-heart"> </i> 
                     </a>
                 </td>
-               
+              
             </tr>
           {% endfor %}
         </tbody>
     </table>
+
+  </div>
+</div>
+    
 
 
 

@@ -32,7 +32,7 @@ urlpatterns = [
     
     path(r'accounts/', include('accounts.urls', namespace='accounts' )),
     path(r'articl/', include('articl.urls', namespace='articl')),
-    path(r'home/', include('home.urls', namespace='home')),
+    path(r'', include('home.urls', namespace='home')),
     
     path('register/', accounts_views.registerPage, name="register"),
     path(r'accounts/', include('django.contrib.auth.urls')),

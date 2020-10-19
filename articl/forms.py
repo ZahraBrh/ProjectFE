@@ -6,6 +6,7 @@ from datetime import date
 
 
 class Postform(forms.ModelForm):
+    path= forms.FileField(required=True)
     
     class Meta:
         model = ArticlPub
@@ -15,7 +16,7 @@ class Postform(forms.ModelForm):
             "keywords",
             "maison_ed",
             "typeArticl",
-            #"published_date",
+            "domaineArt",
             "path",
             "auteurEcrit",
         ]
@@ -36,7 +37,8 @@ class Postform(forms.ModelForm):
             "auteurEcrit":forms.SelectMultiple(attrs={'class':'form-control',
                                     'placeholder':'Please select authors ...'}),
                     
-
+            'domaineArt':forms.Select(attrs={'class':'form-control',
+                                    'placeholder':'Select your domaine interest...'}),
                     }
 
 class NoteForm(forms.ModelForm):

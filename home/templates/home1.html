@@ -1,0 +1,99 @@
+{%  extends 'base.html' %}
+
+{% block content %}
+    
+    <div style="container-fluid">
+        <div class="col-8" style="float:left; width: 70%">
+            
+            <table class="table mb-0 " style="float:left; width: 50%">
+                <thead>
+                  <tr>
+                    <th>Title</th>
+                    <th>Posted by</th>
+                    <th>Download</th>
+                  </tr>
+                </thead>
+            <tbody>
+                {% for art in arts %}
+                
+                    <tr>
+                        <td><a href=" {% url 'articl:detail_articl' pk=art.pk %} "> {{art.titre}} </a> </td>
+                        <td>{{art.user}} </td>
+                        <td><a href="{{art.path.url}}" class="btn btn-primary btn-sm" target="_blank"> Open pdf </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            
+            
+        </div>
+        
+        <div class="col-4" style="float:right;width: 30%" >
+            <h2>Other peaple</h2>
+            {% for user in users %}
+                {% if not user in followers %}
+                    <a href="{%  url 'accounts:profile_with_pk' pk=user.pk  %}">
+                        <p> {{  user.username }}</p>
+                    </a>
+                
+                    <a href=" {% url 'home:change_followers' operation='add' pk=user.pk  %} ">
+                        <button type="button" class="btn btn-success">follow</button>
+                    </a>
+                {% endif %}
+            {% endfor %}
+            <h2>predict list</h2>
+            {% for p in rec %}
+                {% if not p in followers %}
+                
+                    <a href="{%  url 'accounts:profile_with_pk' pk=p.pk  %}">
+                        <p> {{  p }}</p>
+                    </a>
+                
+                    <a href=" {% url 'home:change_followers' operation='add' pk=p.pk  %} ">
+                        <button type="button" class="btn btn-success">follow</button>
+                    </a>
+
+                {% endif %}
+             {% endfor %}
+            <h2>Follower list</h2>
+            {% for follower in followers %}
+                <a href="{%  url 'accounts:profile_with_pk' pk=follower.pk  %}">
+                    <p> {{  follower.username }}</p>
+                </a>
+                <a href=" {% url 'home:change_followers' operation='remove' pk=follower.pk  %} ">
+                    <button type="button" class="btn btn-secondary">Unfollow</button>
+                </a>
+            {% endfor %}
+
+            
+        </div>
+        
+        
+
+    </div>
+
+
+
+
+
+
+
+    {% for p in rec %}
+    {% if not p in followers %}
+    <div class = "content-dir-item">
+        <a href=" {% url 'home:change_followers' operation='add' pk=user.pk  %} ">
+        <img src="{% static 'image/add.png' %}" alt="" id="add" class="ml-3" title="Follow" ></a>
+        <a href="{%  url 'accounts:profile_with_pk' pk=user.pk  %}" >{{  p }}</a>
+    </div>
+      
+    {% endif %}
+    {% endfor %} 
+
+
+
+
+
+
+
+
+{% endblock %}

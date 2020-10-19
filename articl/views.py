@@ -12,7 +12,9 @@ from .models import ArticlPub,Note,Favorite
 from accounts import views
 from django.contrib.auth.models import User
 from django.template.context import RequestContext
-from .recommender import get_predict_list
+from .recommender import get_predict_list, demographic, get_ratings_vector
+from accounts.models import Profile
+from home.models import Follower
 
 # Create your views here.
 def index(request):
@@ -26,6 +28,8 @@ def detail_articl(request,pk):
     average=notes.aggregate(Avg("note"))['note__avg']
     if average==None:
         average=0
+    average=(round(average,2))
+    
 
     is_favourite=False
     if articl.favourite.filter(pk=request.user.pk).exists():
@@ -37,7 +41,6 @@ def detail_articl(request,pk):
      
     context={'articl':articl,
             'notes':notes,
-            
             'average':average,
             'is_favourite':is_favourite,
             #'is_rated':is_rated
@@ -227,19 +230,52 @@ def favorite(request,pk):
         instance = Favoris(livre=livre, user=user)
         instance.save()
     
-    
-       
     return render(request,'recommandation/list_favoris.html',context)
 
 
 @login_required 
 def recommandation(request):
-
+    profiles=Profile.objects.exclude(id=request.user.id)
+    users = User.objects.exclude(id=request.user.id) 
+    arts=ArticlPub.objects.all() 
+        
+    follower, created = Follower.objects.get_or_create(current_user=request.user)
+    followers = follower.users.all()
     predict_list = get_predict_list(request.user)
     print(predict_list)
-    context = {
-        'predict_list':predict_list
+        #rec=User.objects.filter(pk__in=predict_list)
+    #second start
+    demographic_list = demographic(request.user)
+    print(demographic_list)
+        
+    for item in demographic_list.keys():
+            if item not in predict_list:
+                predict_list.append(item)
+        
+        
+    rec=User.objects.filter(pk__in=predict_list)
 
-    }
-    return render(request,'recommandation/list_favoris.html',context)
+    articlList = []
+    for value in predict_list:
+            #art=ArticlPub.objects.filter(user=value)
+            articlList.append(value)
+        
+        
+    articls=ArticlPub.objects.filter(user__id__in=articlList) #get articles where user__id is __in the list articlList
+    print(articlList) 
+        #second end
 
+    context = {'profiles':profiles,
+        'arts':arts,
+        'users':users,
+        'followers':followers,
+        'articls':articls,
+        'rec':rec}    
+    return render(request,'recommend.html',context)
+
+#malware 
+    
+        
+#intro 
+#opensll
+#intro géné

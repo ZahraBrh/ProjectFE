@@ -2,17 +2,10 @@ from django.contrib.auth.models import User
 from .models import ArticlPub,Note,Favorite
 from accounts.models import Profile
 from home.models import Follower
-import numpy as np
+
 from math import sqrt
 import math
 
-def my_cosine_similarity(A, B):
-    result = 0.0
-    
-    numerator = np.dot(A,B)
-    denominator = sqrt(A.dot(A)) * sqrt(B.dot(B))
-    result = numerator / denominator
-    return result
 
 
 def get_follower_list(user):
@@ -131,7 +124,57 @@ def get_predict_list(user):
     return list 
 
     
+def demographic(user):
+
+    profil=Profile.objects.get(user=user)
+    #profil = user
+    profiles=Profile.objects.all() 
+    articl=ArticlPub.objects.all()
+    follower, created = Follower.objects.get_or_create(current_user=user)
+    followers = follower.users.all().values('pk','username')
+
+    profile_corr = {}
+
+    profile_no_followed = []
     
+    #selectioner les profiles 
+    for u in profiles:
+        if u.pk in followers.values():  
+            continue
+        profile_no_followed.append(u)
+    
+    domain = profil.domaine
+    grade = profil.grade
+    labo= profil.labo_affiliation
+
+    
+    for p in profile_no_followed:
+        corr=0
+     #comparer profil user et profil other users
+     
+        if p.domaine == domain:
+            corr=corr+1
+        
+        if p.grade == grade :
+            corr=corr+1
+
+        if p.labo_affiliation == labo:
+            corr=corr+1
+
+        if corr >=1:
+            profile_corr[p.pk]=corr
+            
+    sorted_list = dict(sorted(profile_corr.items(), key=lambda t:[1], reverse=True)[:20])
+    return sorted_list
+
+        
+    
+
+
+
+
+
+
 
 
     

@@ -2,12 +2,133 @@
 {%  extends 'base.html' %}
 {% load static %}
 {% block content %}
-    <h1> Profile </h1>
+    
+
+
+<div class="container target">
+    <div class="row">
+        <div class="col-sm-10">
+            <h1> Profile </h1>
+          <br>
+        </div>
+      
+    </div>
+  <br>
+    <div class="row">
+        <div class="col-sm-3">
+            <!--left col-->
+            <ul class="list-group">
+                <li class="list-group-item text-muted" contenteditable="false">Profile</li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Joined</strong></span> 2.13.2014</li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Last seen</strong></span> Yesterday</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong class="">Real name</strong></span> Joseph
+                        Doe</li>
+              <li class="list-group-item text-right"><span class="pull-left"><strong class="">Role: </strong></span> Pet Sitter
+               
+                      </li>
+            </ul>
+           <div class="panel panel-default">
+             <div class="panel-heading">Insured / Bonded?
+
+                </div>
+                <div class="panel-body"><i style="color:green" class="fa fa-check-square"></i> Yes, I am insured and bonded.
+
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">Website <i class="fa fa-link fa-1x"></i>
+
+                </div>
+                <div class="panel-body"><a href="http://bootply.com" class="">bootply.com</a>
+
+                </div>
+            </div>
+          
+            <ul class="list-group">
+                <li class="list-group-item text-muted">Activity <i class="fa fa-dashboard fa-1x"></i>
+
+                </li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Shares</strong></span> 125</li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Likes</strong></span> 13</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong class="">Posts</strong></span> 37</li>
+                        <li class="list-group-item text-right"><span class="pull-left"><strong class="">Followers</strong></span> 78</li>
+            </ul>
+            <div class="panel panel-default">
+                <div class="panel-heading">Social Media</div>
+                <div class="panel-body">	<i class="fa fa-facebook fa-2x"></i>  <i class="fa fa-github fa-2x"></i> 
+                    <i class="fa fa-twitter fa-2x"></i> <i class="fa fa-pinterest fa-2x"></i>  <i class="fa fa-google-plus fa-2x"></i>
+
+                </div>
+            </div>
+        </div>
+        <!--/col-3-->
+        <div class="col-md-8">
+            <div class="main-message">
+              <div class="cta">
+                  
+              </div>
+            </div>
+            
+            <!-- Blog Post -->
+            {% for art in arts %}
+            <div class="card mb-4" style="border-radius: 2rem">
+              <div class="card-body">
+                
+                <a href=" {% url 'articl:detail_articl' pk=art.pk %} "> <h2 class="card-title" title="Learn more">{{art.titre}}  </h2> </a>
+                <div class="text"><p class="one">{{art.resumé}}</p></div>
+                <div class = "content-dir-item" >
+                  <a href="{{art.path.url}}" class="btn " id="but" target="_blank">Read More &rarr;</a>
+                  
+                  <a href=" {% url 'articl:favourite'  pk=art.pk  %} ">
+                      <img src="{% static 'image/bookmark3.png' %}" alt="" id="fav" class="ml-3" title="Save me" >
+                  </a>
+                  
+                  <img src="{% static 'image/star.png' %}" alt="" id="fav" class="ml-3" title="avg rating" > 
+                  <b> {{art.get_avg_rating}}</b>
+                </div>
+                
+              </div>
+              <div class="card-footer text-muted">
+                {{art.timestamp}} Posted by
+                <a href="{%  url 'accounts:profile_with_pk' pk=user.pk  %}"> {{art.user}}</a>
+              </div>
+            </div>
+            {% endfor %}
+      
+            
+      
+            <!-- Pagination -->
+            <ul class="pagination justify-content-center mb-4">
+              <li class="page-item">
+                <a class="page-link" href="#">&larr; Older</a>
+              </li>
+              <li class="page-item disabled">
+                <a class="page-link" href="#">Newer &rarr;</a>
+              </li>
+            </ul>
+      
+          </div>
+              
+    </div>
+           <div class="panel panel-default">
+                <div class="panel-heading">Starfox221's Bio</div>
+                <div class="panel-body"> A long description about me.
+
+                </div>
+</div></div>
+
+
+            <div id="push"></div>
+        </div>
+
+
+
+
     <p>  Welcome to my site {{user.username}} </p> 
     
     <li> first name :<i>{{user.first_name}}</i></li>
     <li> last name :<i>{{user.last_name}}</i></li>
     <li> birth date :<i>{{user.profile.birth_date}}</i></li>
-    <li> domaine :<i>{{user.profile.domaine}}</i></li>
+    <li> domaine :<i>{{user.profile.domaine.value }}</i></li>
 
 {% endblock %}

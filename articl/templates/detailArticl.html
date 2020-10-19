@@ -1,7 +1,143 @@
 {%  extends 'base.html' %}
 {% load static %}
 {%  block content %}
+<style>
+  #open{
+    width: 30%;
+    max-width: 100%;
+    height: auto;
+    border:5px ;
+    padding-bottom: 1rem;
+    margin-right: 1rem;
+    
+}
+#fav{
+    width: 50%;
+    max-width: 100%;
+    height: auto;
+    border:5px ;
+    padding-top:2rem;
+}
 
+</style>
+<!-- Page Content -->
+<div class="container">
+
+  <div class="row">
+
+    <!-- Post Content Column -->
+    <div class="col-lg-8">
+
+      <!-- Title -->
+      
+      <h1 class="mt-4"> {{articl.titre}}</h1>
+      
+      <!-- Author -->
+      <p class="lead">
+        by
+        <a href="{%  url 'accounts:profile_with_pk' pk=articl.user.pk  %}">{{articl.user}}</a>
+      </p>
+
+      <hr>
+
+      <!-- Date/Time -->
+        <footer class="blockquote-footer">
+          <cite >Posted on  {{articl.timestamp}}</cite>
+        </footer>
+      
+      <hr>
+      <h4>Abstract</h4>
+      <p class="mb-0">{{articl.resumé}}</p>
+      <hr>
+    </div>
+       <!-- Sidebar Widgets Column -->
+       <div class="col-md-4">
+
+        <!-- Search Widget -->
+        
+        <div class="card my-4">
+          
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-6">
+  
+                <a href="{{articl.path.url}}" class="btn" target="_blank"><h4>Open</h4> <img src="{% static 'image/pdf2.png' %}" alt="" id="open" class="ml-3" title="open" ></a>
+              
+  
+              </div>
+              <div class="col-lg-6">
+                
+                {% if is_favourite %}
+                <a href=" {% url 'articl:favourite'  pk=articl.pk  %} ">
+                  <img src="{% static 'image/bookmark4.png' %}" alt="" id="fav" class="ml-3" title="Saved" >
+          
+                </a>
+                {% else %}
+                <a href=" {% url 'articl:favourite'  pk=articl.pk  %} ">
+                  <img src="{% static 'image/bookmark3.png' %}" alt="" id="fav" class="ml-3" title="Save me" >
+                </a>
+                {% endif %}
+  
+  
+              </div>
+            </div>
+          </div>
+        </div>
+            
+        
+
+        <!-- Categories Widget -->
+        <div class="card my-4">
+          <h4 class="card-header">Rate this Article</h4>
+          
+          <div class="card-body">
+          <form action=" {% url 'articl:ajouter_note' articl.pk %} "  method="POST" >
+            {% csrf_token %}
+            <label for="note"><h3 class="ml-3">Rating</h3></label>
+            
+            <input type="range" name="note" id="rangeInpute" min="0" max="5" step="1" value="0" oninput="amount.value-rangeInpute.value">
+            <output name="amount" id="amount" for="rangeInpute">0</output>
+            <br>
+            <input type="submit" class="btn btn-danger" value="ajouter note" >
+            
+      
+          </form>
+          </div>
+        </div>
+
+        <!-- Side Widget -->
+        <div class="card my-4">
+          <h4 class="card-header">Average </h4>
+          <div class="card-body">
+            <label for="note"><h3 class="ml-3">{{average}}/5</h3></label>
+          </div>
+        </div>
+
+      </div>
+      <div class="card my-4">
+        <h5 class="card-header">Categories</h5>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-lg-6">
+
+              <div class="str_Rating_detail">         
+                <!--star rating-->
+                <div id="" data-rating="3" data-rateyo-read-only="false" class="rateYo bookrating" ></div>  
+                <!-- to show selected star value-->                     <input type="text" class="bookrating"> 
+                <!--to store rating name and language -->               <input type="hidden" class="bookId" value="17">
+                                
+                </div>
+
+                
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
 <table class="table mb-0">
   <h3> {{articl.titre}}</h3>
   <thead>
@@ -38,14 +174,13 @@
           <td><div id="favourite-section"> 
             {% if is_favourite %}
                 <a href=" {% url 'articl:favourite'  pk=articl.pk  %} ">
-                    <button type="button" class="btn btn-success"> on fav</button>
-                    <i class="far fa-heart"> </i>
+                  <img src="{% static 'image/bookmark4.png' %}" alt="" id="fav" class="ml-3" title="Saved" >
+           
                 </a>
             {% else %}
-                <a href=" {% url 'articl:favourite'  pk=articl.pk  %} ">
-                    <button type="button" class="btn btn-danger"> add to fav</button>
-                    <i class="far fa-heart"> </i> 
-                </a>
+            <a href=" {% url 'articl:favourite'  pk=articl.pk  %} ">
+              <img src="{% static 'image/bookmark3.png' %}" alt="" id="fav" class="ml-3" title="Save me" >
+            </a>
             {% endif %}
         </div></td>
       </tr>

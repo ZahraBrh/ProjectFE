@@ -57,8 +57,7 @@
 </style>
 <!-- Page Content -->
 <div class="container">
-  <a href="{%  url 'articl:postarticl'  %}" class="btn" ><h3> add your article </h3></a>
-  <hr>
+
   <div class="row">
 
     <!-- Blog Entries Column -->
@@ -69,29 +68,29 @@
             
         </div>
       </div>
-      
+
       <!-- Blog Post -->
-      {% for art in arts %}
+      {% for obj in articls %}
+      
+     
       <div class="card mb-4" style="border-radius: 2rem">
         <div class="card-body">
           
-          <a href=" {% url 'articl:detail_articl' pk=art.pk %} "> <h2 class="card-title" title="Learn more">{{art.titre}}  </h2> </a>
-          <div class="text"><p class="one">{{art.resumé}}</p></div>
+          <a href=" {% url 'articl:detail_articl' pk=obj.pk %} "> <h2 class="card-title" title="Learn more">{{obj.titre}}  </h2> </a>
+     
+          <div class="text"><p class="one">{{obj.resumé}}</p></div>
           <div class = "content-dir-item" >
-            <a href="{{art.path.url}}" class="btn " id="but" target="_blank">Read More &rarr;</a>
+            <a href="{{obj.path.url}}" class="btn " id="but" target="_blank">Read More &rarr;</a>
             
-            <a href=" {% url 'articl:favourite'  pk=art.pk  %} ">
+              <a href=" {% url 'articl:favourite'  pk=obj.pk  %} ">
                 <img src="{% static 'image/bookmark3.png' %}" alt="" id="fav" class="ml-3" title="Save me" >
-            </a>
-            
-            <img src="{% static 'image/star.png' %}" alt="" id="fav" class="ml-3" title="avg rating" > 
-            <b> {{art.get_avg_rating}}</b>
+              </a>
           </div>
           
         </div>
         <div class="card-footer text-muted">
-          {{art.timestamp}} Posted by
-          <a href="{%  url 'accounts:profile_with_pk' pk=user.pk  %}"> {{art.user}}</a>
+          {{obj.timestamp}} Posted by
+          <a href="{%  url 'accounts:profile_with_pk' pk=user.pk  %}"> {{obj.user}}</a>
         </div>
       </div>
       {% endfor %}
@@ -113,11 +112,19 @@
     <!-- Sidebar Widgets Column -->
     <div class="col-md-4">
 
-      
+      <!-- Side Widget -->
+      <div class="card my-4" id="content" >
+        <h4 class="card-header" >RECOMMENDATIONS</h4>
+        <div class="card-body">
+            {% for obj in articls %}
+              <a href=" {% url 'articl:detail_articl' pk=obj.pk %} "> <h5 class="card-title" title="Learn more">{{obj.titre}}  </h5> </a>
+            {% endfor %}  
+          </div>
+      </div>
       <!-- Categories Widget -->
      
       <div class="card my-4" id="content" >
-        <h4 class="card-header">recommended researcher</h4>
+        <h4 class="card-header">recommended profiles</h4>
         <div class="card-body">
               {% for p in rec %}
                 {% if not p in followers %}
@@ -130,17 +137,6 @@
               {% endfor %} 
 
             </div>
-      </div>
-
-      <!-- Side Widget -->
-      <div class="card my-4" id="content" >
-        <h4 class="card-header" >recommended articles</h4>
-        <div class="card-body">
-            {% for obj in articls %}
-              
-              <a href=" {% url 'articl:detail_articl' pk=obj.pk %} "> <h5 class="card-title" title="Learn more">{{obj.titre}}  </h5> </a>
-            {% endfor %}  
-          </div>
       </div>
       
       <div class="card my-4" id="content" >

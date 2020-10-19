@@ -59,7 +59,7 @@ def registerPage(request):
 
             print('user created')
             messages.add_message(request, messages.SUCCESS , "You have Registered successfully" )
-            return redirect('index')
+            return redirect('home:home')
     else:
         form=CreateUserForm()
         profile_form = DetailsForm()

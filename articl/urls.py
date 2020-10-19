@@ -10,6 +10,7 @@ urlpatterns = [
     #path(r'', views.index, name='index'),
     path('postarticl/',views.createPost,name='postarticl'),
     path('listarticl/',views.listArticl,name='listArticl'),
+    path('recommendation/',views.recommandation,name='recommandation'),
     path('<int:pk>/', views.deleteArticl,name='delele_Articl'),
     url(r'^detail/(?P<pk>\d+)/$',views.detail_articl, name='detail_articl'),
     url(r'(?P<pk>\d+)/Favourite/$',views.favourite, name='favourite'),

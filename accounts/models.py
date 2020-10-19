@@ -27,12 +27,19 @@ class Profile(models.Model):
 
         )
     
+    GRADE=(
+            ('1','Category A '),
+            ('2','Category B '),
+            ('3','Category C '),
+            ('4','Category D '),
+            )
+    
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     birth_date = models.DateField(null=True, blank=True)
     bio = models.TextField(max_length=500, blank=True)
     location = models.CharField(max_length=30, blank=True)
-    grade=models.CharField(max_length=100,blank=True)
-    labo_affiliation=models.CharField(max_length=100,blank=True)
+    grade=models.CharField(max_length=100,blank=True,choices=GRADE,default='Category D ')
+    labo_affiliation=models.CharField(max_length=100,blank=True,)
     domaine=models.CharField(max_length=100,choices=DOMAINE,blank=False,default='Computer Software ')
     numTel=models.IntegerField(null=True,blank=True)
     #profile_photo=models.ImageField(blank=True,null=True,upload_to='profilePhotos')

@@ -48,15 +48,23 @@ class DetailsForm(ModelForm):
     #birth_date = forms.DateTimeField(widget=forms.DateInput())
     class Meta:
         model = Profile
-        fields = ['birth_date','labo_affiliation','domaine','location']
+        fields = ['birth_date','labo_affiliation','domaine','location','grade',]
         
+        labels = {
+            'labo_affiliation':'Affiliation',
+            'domaine':'Field ',
+        }
                                         
         widgets = {            
                         'labo_affiliation':forms.TextInput(attrs={'class':'form-control',
                                     'placeholder':'Affiliation...'}),
 
                         'domaine':forms.Select(attrs={'class':'form-control',
-                                    'placeholder':'Select your domaine interest...'}),
+                                    'placeholder':'Select your field , domaine ...'}),
+                        'grade':forms.Select(attrs={'class':'form-control',
+                                    'placeholder':'Select your grade...'}),
+                        'birth_date':forms.TextInput(attrs={'class':'form-control',
+                                    'placeholder':'YYYY-MM-DD.'}),
                     }
         
 

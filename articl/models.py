@@ -13,10 +13,30 @@ class ArticlPub(models.Model):
       ('4','Review Article'),
       ('5','Peer-Reviewed Articles'),
     )
+    
+    DOMAINE=(
+        #list of fields https://www.quora.com/What-are-different-fields-in-computer-science
+        ('1','Computer Hardware'),
+        ('2','Computer Networking'),
+        ('3','Computer Software'),
+        ('4','Cloud computing'),
+        ('5','Cyber Security and Ethical Hacking'),
+        ('6','Data Science and Data Analysis'),
+        ('7','Programming Language'),
+        ('8','Artificial intelligence'), 
+        ('9','Operating system'),
+        ('10','Web Development'),
+        ('11','Web Designing'),
+        ('12','Graphics design'),
+        ('13','Network Analytics and testing'),
+        ('14','Robotics'),
+        ('15','others field'),
+
+        )
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     titre=models.CharField(max_length=500)
-    resumé=models.CharField(max_length=1000, blank=True)
+    resumé=models.CharField(max_length=2000, blank=True)
     keywords=models.CharField(max_length=500, blank=True)
     maison_ed=models.CharField(max_length=500,blank=True)
     typeArticl=models.CharField(max_length=100,blank=False,choices=ArticlTYPE)
@@ -25,7 +45,7 @@ class ArticlPub(models.Model):
     auteurEcrit = models.ManyToManyField(Profile, blank=True, null=True)
     favourite = models.ManyToManyField(User,related_name='favourite', blank=True)
     timestamp = models.DateField(auto_now=False, auto_now_add=True)
-    
+    domaineArt=models.CharField(max_length=100,choices=DOMAINE,blank=False,default='Computer Software ')
     def __str__(self):
       return self.titre
 
@@ -33,7 +53,21 @@ class ArticlPub(models.Model):
 
     def delete(self, *args, **kwargs):
        self.path.delete()
-       super().delete(*args, **kwargs)  
+       super().delete(*args, **kwargs)
+    
+    def get_avg_rating(self):
+      notes = Note.objects.filter(articl=self)
+      count = len(notes)
+      if count == 0:
+        return(0)
+      
+      sum = 0
+      for nt in notes:
+        sum += nt.note
+      return (sum/count)
+
+
+        
         
     
 
